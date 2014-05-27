@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {% style "/css/bootstrap.css" %}
+    {% style "/css/main.css" %}
+    {% style "/css/custom.css" %}
+    {% script "/js/angular.js"%}
+    {% script "/js/angular-route.js"%}
+    {% script "/js/app.js"%}
+    <title>Welcome to core</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Admin</a>
+        </div>
+        <div class="navbar-collapse collapse ">
+          <ul class="nav navbar-nav">
+            <li class="{{home-selected}}"><a href="/">Dashboard</a></li>
+            <li class="{{about-selected}}"><a href="/about">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div ng-controller="NotifierCtrl" class="notify [{notifier.class}]" ng-show="notifier.show"  ng-cloak>
+      [{notifier.message}]
+    </div>
+    <div class="container" style="padding-top:75px;">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <!-- scripts and styles -->
+    <input type="hidden" value="{{csrfmiddlewaretoken}}" id="csrfmiddlewaretoken"/>
+  </body>
+</html>
+

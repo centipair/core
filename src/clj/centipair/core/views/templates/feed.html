@@ -1,0 +1,169 @@
+{% extends "centipair/core/views/templates/base.html" %}
+{%block title%}
+Feed
+{%endblock%}
+{% block content %}
+  
+  <div class="row" >
+
+    <div class="col-md-6" ng-controller="ComposeCtrl">
+      <div class="panel panel-default">
+	<div class="panel-body">
+	  <div class="compose" id="compose" ng-model="post.content" contenteditable></div>
+	</div>
+	<div class="panel-footer">
+	  <div class="clear-fix" style="margin-bottom:5px;">
+	    <span class="btn btn-xs btn-default btn-file" ng-show="widgets.image">
+	    
+	      <input type="file" ng-file-select="onFileSelect($files)" multiple>
+	    </span>
+	    
+	    <div class="form-group" ng-show="widgets.youtube">
+	      <input type="text" class="form-control" placeholder="Youtube URL">
+	    </div>
+	    <div class="form-group" ng-show="widgets.url">
+	      <input type="url" class="form-control" placeholder="URL" ng-model="post.url">
+	    </div>
+	    <div ng-show="widgets.event">
+	      <div class="form-group">
+		<input type="text" class="form-control" placeholder="Event Name" ng-model="post.event_name">
+	      </div>
+	      <div class="form-group">
+		<textarea class="form-control" placeholder="Event Description" ng-model="post.event_description"></textarea>
+	      </div>
+	      <div class="form-group">
+		<div class="input-group">
+		  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="post.event_date" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+		  
+		  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+		  </span>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+	      </div>
+	    </div>
+	      <div class="form-group" ng-show="widgets.location">
+		<google-places location=location></google-places>
+	      </div>
+	  </div>
+	  <button type="button" class="btn btn-xs btn-default" ng-click="showWidget('image')">
+	    <i class="fa fa-camera" title="image"></i>
+	  </button>
+	  <button type="button" class="btn btn-xs btn-default" ng-click="showWidget('youtube')" >
+	    <i class="fa fa-youtube" title="youtube"></i>
+	  </button>
+	  <button type="button" class="btn btn-xs btn-default" ng-click="showWidget('url')">
+	    <i class="fa fa-link" title="web link"></i>
+	  </button>
+	  <button type="button" class="btn btn-xs btn-default" ng-click="showWidget('location')">
+	    <i class="fa fa-map-marker" title="location"></i>
+	  </button>
+	  <button type="button" class="btn btn-xs btn-default" ng-click="showWidget('event')">
+	    <i class="fa fa-calendar" title="event"></i>
+	  </button>
+	  <button type="submit" class="btn btn-primary" style="float:right;" ng-click="submitPost()">Post</button>
+	</div>
+	
+      </div>
+
+      <div class="feed">
+	<div class="clearfix">
+	  <a href="#" class="feed-header-image"><img src="/img/profile.jpg"/></a>
+	  <div class="feed-header-text">
+	    <a href="#" class="feed-profile-link">Devasia Joseph</a>
+	    <br/>
+	    <span class="feed-time-ago">29 mins</span>
+	  </div>
+	</div>
+	<div class="feed-body">
+	  <div class="clearfix feed-text">
+	    Scott will be the cover star of next weeks Martial Arts Illustrated released 15th May in UK. In the meantime here's your chance to win a free DVD if
+	  </div>
+	  <div>
+	    <img src="/img/feed/image-test.jpg" class="img-responsive"/>
+	  </div>
+	  
+	</div>
+      </div>
+
+      <div class="feed">
+	<div class="clearfix">
+	  <a href="#" class="feed-header-image"><img src="/img/profile.jpg"/></a>
+	  <div class="feed-header-text">
+	    <a href="#" class="feed-profile-link">Devasia Joseph</a>
+	    <br/>
+	    <span class="feed-time-ago">29 mins</span>
+	  </div>
+	</div>
+	<div class="feed-body">
+	  <div class="clearfix feed-text">
+	    Forum & Le Meridian 
+	    Saturday Shuffle
+	    Featuring Sekhar Menon & Stalvart John
+	    Entry strictly for couples.
+	    For More Updates :http://on.fb.me/1s6FRDL
+	  </div>
+	  <div>
+	    <img src="/img/feed/image-test-1.jpg" class="img-responsive"/>
+	  </div>
+	  
+	</div>
+      </div>
+
+      <div class="feed">
+	<div class="clearfix">
+	  <a href="#" class="feed-header-image"><img src="/img/profile.jpg"/></a>
+	  <div class="feed-header-text">
+	    <a href="#" class="feed-profile-link">Devasia Joseph</a>
+	    <br/>
+	    <span class="feed-time-ago">29 mins</span>
+	  </div>
+	</div>
+	<div class="feed-body">
+	  <div class="clearfix feed-text">
+	    'Halo' TV Show Won't Be Xbox-Exclusive; Showtime Deal in the Works
+	    A potential partnership with premium cable network Showtime reveals...
+	    GAMERANT.COM
+	    
+	  </div>
+	  <div>
+	    <img src="/img/feed/image-test-2.jpg" class="img-responsive"/>
+	  </div>
+	  
+	</div>
+      </div>
+      
+    </div>
+    <div class="col-md-4">
+      <div class="feed">
+	<div class="clearfix">
+	  <a href="#" class="feed-header-image"><img src="/img/profile.jpg"/></a>
+	  <div class="feed-header-text">
+	    <a href="#" class="feed-profile-link">Devasia Joseph</a>
+	    <br/>
+	    <span class="feed-time-ago">Edit Profile</span>
+	  </div>
+	 
+	</div>
+	<hr>
+	<div class="clear-fix events">
+	  <div><i class="fa fa-calendar"></i> Events</div>
+	  <div class="event">
+	    <div class="clearfix"><a href="#"> Friend's </a> Birthday </div>
+	    <div class="cleafix"> <span class="event-date">May 10</span></div>
+	  </div>
+	  <div> <span class="event-date">May 14</span> : <a href="#"> Another Friend's </a> Wedding </div>
+	  <div> <span class="event-date">May 25</span> : <a href="#"> Awesome Party </a> at <a href="#">Some club</a> </div>
+	  <a href="#events"/>View more<a>
+	</div>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+
+
+{% endblock %}

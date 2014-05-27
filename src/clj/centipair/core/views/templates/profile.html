@@ -1,0 +1,139 @@
+<div class="ng-scope">
+  <div ng-show="allErrorss" class="form-group has-error ng-hide">
+    <label class="control-label ng-binding">
+    </label>
+  </div>
+  <form role="form" name="form" class="ng-pristine ng-valid">
+    <div class="formGroup ">
+      <label for="first_name" class="control-label">First Name
+      </label>
+      <input type="text" placeholder="" ng-model="form.first_name" id="first_name" class="form-control ng-pristine ng-valid">
+      <label for="first_name" class="control-label ng-binding">
+      </label>
+    </div>
+    <div class="formGroup ">
+      <label for="middle_name" class="control-label">Middle Name
+      </label>
+      <input type="text" placeholder="" ng-model="form.middle_name" id="middle_name" class="form-control ng-pristine ng-valid">
+      <label for="middle_name" class="control-label ng-binding">
+      </label>
+    </div>
+    <div class="formGroup ">
+      <label for="last_name" class="control-label">Last Name
+      </label>
+      <input type="text" placeholder="" ng-model="form.last_name" id="last_name" class="form-control ng-pristine ng-valid">
+      <label for="last_name" class="control-label ng-binding">
+      </label>
+    </div>
+    <fieldset class="scheduler-border">
+      <legend class="scheduler-border">Contact Details</legend>
+      <div class="formGroup ">
+	<label for="email" class="control-label">Email
+	</label>
+	<input type="text" placeholder="" ng-model="form.email" id="email" class="form-control ng-pristine ng-valid">
+	<label for="email" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="chat_channel" class="control-label">Chat Service
+	</label>
+	<input type="text" placeholder="" ng-model="form.chat_channel" id="chat_channel" class="form-control ng-pristine ng-valid">
+	<label for="chat_channel" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="chat_id" class="control-label">Chat Id
+	</label>
+	<input type="text" placeholder="" ng-model="form.chat_id" id="chat_id" class="form-control ng-pristine ng-valid">
+	<label for="chat_id" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="website" class="control-label">Website
+	</label>
+	<input type="text" placeholder="" ng-model="form.website" id="website" class="form-control ng-pristine ng-valid">
+	<label for="website" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="phone_mobile" class="control-label">Phone (Mobile)
+	</label>
+	<input type="text" placeholder="" ng-model="form.phone_mobile" id="phone_mobile" class="form-control ng-pristine ng-valid">
+	<label for="phone_mobile" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="phone_fixed" class="control-label">Phone (Fixed Line)
+	</label>
+	<input type="text" placeholder="" ng-model="form.phone_fixed" id="phone_fixed" class="form-control ng-pristine ng-valid">
+      <label for="phone_fixed" class="control-label ng-binding">
+      </label>
+      </div>
+      <div class="formGroup ">
+	<label for="address_line1" class="control-label">Address Line 1
+	</label>
+	<input type="text" placeholder="" ng-model="form.address_line1" id="address_line1" class="form-control ng-pristine ng-valid">
+	<label for="address_line1" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="street" class="control-label">Street
+	</label>
+	<input type="text" placeholder="" ng-model="form.street" id="street" class="form-control ng-pristine ng-valid">
+	<label for="street" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="ciity" class="control-label">City
+	</label>
+	<input type="text" placeholder="" ng-model="form.ciity" id="ciity" class="form-control ng-pristine ng-valid">
+	<label for="ciity" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="state" class="control-label">State
+	</label>
+	<input type="text" placeholder="" ng-model="form.state" id="state" class="form-control ng-pristine ng-valid">
+	<label for="state" class="control-label ng-binding">
+	</label>
+      </div>
+      <div class="formGroup ">
+	<label for="country" class="control-label">Country
+	</label>
+	<input type="text" placeholder="" ng-model="form.country" id="country" class="form-control ng-pristine ng-valid">
+	<label for="country" class="control-label ng-binding">
+	</label>
+      </div>
+    </fieldset>
+    <div class="formGroup ">
+      <label for="birth_day" class="control-label">Birth Day
+      </label>
+      <input type="text" placeholder="" ng-model="form.birth_day" id="birth_day" class="form-control ng-pristine ng-valid">
+      <label for="birth_day" class="control-label ng-binding">
+      </label>
+    </div>
+    <div class="formGroup ">
+      <label for="birth_month" class="control-label">Birth Month
+      </label>
+      <input type="text" placeholder="" ng-model="form.birth_month" id="birth_month" class="form-control ng-pristine ng-valid">
+      <label for="birth_month" class="control-label ng-binding">
+      </label>
+    </div>
+    <div class="formGroup ">
+      <label for="birth_year" class="control-label">Birth Year
+      </label>
+      <input type="text" placeholder="" ng-model="form.birth_year" id="birth_year" class="form-control ng-pristine ng-valid">
+      <label for="birth_year" class="control-label ng-binding">
+      </label>
+    </div>
+    <div class="formGroup ">
+      <label for="gender" class="control-label">Gender
+      </label>
+      <input type="text" placeholder="" ng-model="form.gender" id="gender" class="form-control ng-pristine ng-valid">
+      <label for="gender" class="control-label ng-binding">
+      </label>
+    </div>
+    <button url="/admin/profile/save" type="submit" submit="" class="btn btn-default btn-primary">Submit
+    </button>
+  </form>
+</div>

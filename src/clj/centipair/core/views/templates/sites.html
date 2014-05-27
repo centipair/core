@@ -1,0 +1,12 @@
+<table class="table table-hover">
+  <tr>
+    <th>Name</th>
+    <th>Domain name</th>
+    <th>Active</th>
+  </tr>
+  <tr ng-repeat="data in ListData" class="data-row" title="click to edit" ng-click="editData(data)">
+    <td>[{data.site_name}]</td>
+    <td>[{data.domain_name}]</td>
+    <td>[{data.active}]</td>
+  </tr>
+</table>

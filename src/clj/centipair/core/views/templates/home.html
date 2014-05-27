@@ -1,0 +1,22 @@
+{% extends "centipair/core/views/templates/base.html" %}
+{%block title%}
+Coming soon!
+{%endblock%}
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-centered">
+      Distributed independent social network
+      <h2>Enter your email to get an early access</h2>
+      <form class="form-inline" role="form" ng-controller="EarlyAccessCtrl">
+	<div class="form-group [{errors.emailClass}]">
+	  <input type="text" class="form-control" placeholder="Enter your email address" ng-model="form.email">
+	  
+	</div>
+	<button type="submit" class="btn btn-warning btn-lg" submit url="/invite">Invite Me!</button>
+	</br>
+	<label class="control-label" for="email" style="color:red;">[{errors.email}]</label>	
+	<label class="control-label">[{successMessage}]</label>	
+      </form>
+    </div>
+</div>
+{% endblock %}
