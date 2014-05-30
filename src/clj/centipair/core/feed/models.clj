@@ -12,5 +12,13 @@
 (def box-table :box)
 (def box-handle-table :box_handle)
 (def feed-table :feed)
-(def feed-image-tbale :feed_image)
+(def feed-image-table :feed_image)
+
+(defn new-feed-id []
+  (str (time-based)))
+
+(defn save-feed [form]
+  (println form)
+  {:status-code 200 :message "saved"}
+  )
 

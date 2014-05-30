@@ -3,13 +3,13 @@
 Feed
 {%endblock%}
 {% block content %}
-  
   <div class="row" >
 
     <div class="col-md-6" ng-controller="ComposeCtrl">
       <div class="panel panel-default">
 	<div class="panel-body">
 	  <div class="compose" id="compose" ng-model="post.content" contenteditable></div>
+	  <input type="hidden" ng-model="post.id" ng-init="post.id='{{post_id}}'" />
 	</div>
 	<div class="panel-footer">
 	  <div class="clear-fix" style="margin-bottom:5px;">

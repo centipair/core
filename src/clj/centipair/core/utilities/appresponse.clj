@@ -1,7 +1,7 @@
 (ns centipair.core.utilities.appresponse
-  (:require[noir.response :as response]
-           [noir.cookies :as cookies]
-           [cheshire.core :refer :all]))
+  (:require [noir.response :as response]
+            [noir.cookies :as cookies]
+            [cheshire.core :refer :all]))
 
 (def response-codes {:forbidden 403
                      :server-error 500

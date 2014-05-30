@@ -22,7 +22,8 @@
                  [clj-http "0.9.1"]]
 
   :repl-options {:init-ns centipair.core.repl
-                 :init (centipair.core.repl/start-server)}
+                 :init (centipair.core.repl/start-server)
+                 :timeout 120000}
   :plugins [[lein-ring "0.8.10"]
             [lein-environ "0.5.0"]]
   :ring {:handler centipair.core.handler/app

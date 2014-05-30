@@ -10,8 +10,6 @@ function makeUrl(url, params){
     return url+params.id;
 }
 
-
-
 app.factory("Notifier", function(){
     return {show:false, message:"Loading...", class:"notify-loading"};
 });
@@ -163,6 +161,7 @@ app.controller('SubmitCtrl', function($scope, $controller, $http, PostData, GetD
 	    },
 	    function (response){
 		//this is invoked during error
+		console.log(response);
 		$scope.submitButton.disabled=false;
 		data = response.data;
 		status = response.status;
@@ -179,8 +178,10 @@ app.controller('SubmitCtrl', function($scope, $controller, $http, PostData, GetD
 		}else if (status==500){
 		    $scope.notify(500);
 		}
-		else if(status=404){
+		else if(status==404){
 		    $scope.notify(404);
+		}else if(status==403){
+		    $scope.notify(403);
 		}
 		
 	    }
@@ -306,7 +307,7 @@ app.controller('ComposeCtrl', function($scope, $controller, $upload){
     }
 
     $scope.submitPost = function(){
-	console.log($scope.mytime.getTime());
+	//console.log($scope.mytime.getTime());
 	text = $scope.post.content.replace(/<br\/>/g, '\n');
 	text = text.replace(/<br>/g, '\n');
 	
@@ -316,43 +317,43 @@ app.controller('ComposeCtrl', function($scope, $controller, $upload){
 	$scope.post.location_longitude = $scope.location.longitude;
 	$scope.post.location_address = $scope.location.address;
 	$scope.form = $scope.post;
-	console.log($scope.form);
+	//console.log($scope.form);
 	$scope.submitFormService('/feed/post');
     };
     
     $scope.callback = function(data){
-	window.location = data.redirect;
+	console.log(data);
     };
      $scope.onFileSelect = function($files) {
     //$files: an array of files selected, each file has name, size, and type.
-    for (var i = 0; i < $files.length; i++) {
-      var file = $files[i];
-      $scope.upload = $upload.upload({
-        url: '/upload', //upload.php script, node.js route, or servlet url
-        // method: 'POST' or 'PUT',
-        // headers: {'header-key': 'header-value'},
-        // withCredentials: true,
-        data: {myObj: $scope.myModelObj},
-        file: file, // or list of files: $files for html5 only
-        /* set the file formData name ('Content-Desposition'). Default is 'file' */
-        //fileFormDataName: myFile, //or a list of names for multiple files (html5).
-        /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
-        //formDataAppender: function(formData, key, val){}
-      }).progress(function(evt) {
-        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-      }).success(function(data, status, headers, config) {
-        // file is uploaded successfully
-        console.log(data);
-      });
-      //.error(...)
-      //.then(success, error, progress); 
-      //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
-    }
-    /* alternative way of uploading, send the file binary with the file's content-type.
+	 for (var i = 0; i < $files.length; i++) {
+	     var file = $files[i];
+	     $scope.upload = $upload.upload({
+		 url: '/feed/upload', //upload.php script, node.js route, or servlet url
+		 // method: 'POST' or 'PUT',
+		 // headers: {'header-key': 'header-value'},
+		 // withCredentials: true,
+		 data: {myObj: $scope.post.id},
+		 file: file, // or list of files: $files for html5 only
+		 /* set the file formData name ('Content-Desposition'). Default is 'file' */
+		 //fileFormDataName: myFile, //or a list of names for multiple files (html5).
+		 /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
+		 //formDataAppender: function(formData, key, val){}
+	     }).progress(function(evt) {
+		 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+	     }).success(function(data, status, headers, config) {
+		 // file is uploaded successfully
+		 console.log(data);
+	     });
+	     //.error(...)
+	     //.then(success, error, progress); 
+	     //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
+	 }
+	 /* alternative way of uploading, send the file binary with the file's content-type.
        Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed. 
        It could also be used to monitor the progress of a normal http post/put request with large data*/
-    // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
-  };
+	 // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
+     };
 });
 
 
@@ -402,7 +403,7 @@ app.directive('contenteditable', function() {
 	      document.getElementById(attrs.id).innerHTML = init_text;
 	      var text = element.text();
 	      text = text.replace(/\n/g, '<br/>');
-	      console.log(text);
+	      //console.log(text);
 	      document.getElementById(attrs.id).innerHTML = text;
 	      ngModel.$setViewValue(text);
 	  }
@@ -410,7 +411,7 @@ app.directive('contenteditable', function() {
 	  
           // Write data to the model
           function read() {
-	      console.log("reading");
+	      //console.log("reading");
               var html = element.html();
               // When we clear the content editable the browser leaves a <br> behind
               // If strip-br attribute is provided then we strip this out
@@ -423,38 +424,6 @@ app.directive('contenteditable', function() {
     };
   });
 
-var MyCtrl = [ '$scope', '$upload', function($scope, $upload) {
-  $scope.onFileSelect = function($files) {
-    //$files: an array of files selected, each file has name, size, and type.
-    for (var i = 0; i < $files.length; i++) {
-      var file = $files[i];
-      $scope.upload = $upload.upload({
-        url: 'server/upload/url', //upload.php script, node.js route, or servlet url
-        // method: 'POST' or 'PUT',
-        // headers: {'header-key': 'header-value'},
-        // withCredentials: true,
-        data: {myObj: $scope.myModelObj},
-        file: file, // or list of files: $files for html5 only
-        /* set the file formData name ('Content-Desposition'). Default is 'file' */
-        //fileFormDataName: myFile, //or a list of names for multiple files (html5).
-        /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
-        //formDataAppender: function(formData, key, val){}
-      }).progress(function(evt) {
-        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-      }).success(function(data, status, headers, config) {
-        // file is uploaded successfully
-        console.log(data);
-      });
-      //.error(...)
-      //.then(success, error, progress); 
-      //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
-    }
-    /* alternative way of uploading, send the file binary with the file's content-type.
-       Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed. 
-       It could also be used to monitor the progress of a normal http post/put request with large data*/
-    // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
-  };
-}];
 
 
  /* Directives */

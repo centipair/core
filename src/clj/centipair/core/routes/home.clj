@@ -41,22 +41,15 @@
   (response/redirect "/"))
 
 (defn csrf []
-  (send-response {:csrfmiddlewaretoken (get-csrf-token) :status-code 200})
-  )
+  (send-response {:csrfmiddlewaretoken (get-csrf-token) :status-code 200}))
 
 (defn invite [request] 
   (send-response (valid-form? early-access-check (to-data request) insert-early-access-email)))
 
-(defn feed []
-  (layout/render "feed.html"))
 
 (defn location []
   (layout/render "location.html"))
 
-(defn handle-upload [file]
-  (io/upload-file  (str (io/resource-path) "uploads") file)
-  "Uploaded"
-  )
 
 (defroutes home-routes
   (GET "/" [] (home-page))
@@ -67,8 +60,6 @@
   (POST "/login/submit" request (login-submit request))
   (GET "/logout" [] (logout))
   (GET "/activate/:key" [key] (activate key))
-  (GET "/feed" [] (feed))
   (GET "/location" [] (location))
   (POST "/invite" request (invite request))
-  (POST "/upload" [file] (handle-upload file))
   (GET "/csrf" [] (csrf)))

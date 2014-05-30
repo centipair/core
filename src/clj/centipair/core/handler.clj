@@ -1,12 +1,15 @@
 (ns centipair.core.handler
-  (:use [ring.middleware.json :only [wrap-json-params]])
-       	;;centipair.core.cms.access)
+  (:use [ring.middleware.json :only [wrap-json-params]]
+       	centipair.core.cms.access
+        centipair.core.auth.user.access)
   (:require [compojure.core :refer [defroutes]]
             [centipair.core.routes.home :refer [home-routes]]
             [centipair.core.api.routes :refer [api-routes]]
             [centipair.core.api.admin :refer [api-admin-routes]]
             [centipair.core.routes.admin :refer [admin-routes]]
+            [centipair.core.feed.routes :refer [feed-routes]]
             [centipair.core.middleware :as middleware]
+            [centipair.core.utilities.appresponse :as response]
             [noir.util.middleware :refer [app-handler]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -56,13 +59,17 @@
 
 (def app (app-handler
            ;; add your application routes here
-           [api-admin-routes admin-routes home-routes app-routes]
+           [feed-routes api-admin-routes admin-routes home-routes app-routes]
            ;; add custom middleware here
            :middleware []
            ;; add access rules here
-           :access-rules [];;[{:uris ["/admin/*" ""]
-                         ;;  :rule site-admin-access
-                         ;;  :redirect "/admin-access-denied"}]
+           :access-rules [{:uri "/admin/*"
+                           :rule site-admin-access
+                           :redirect "/admin-access-denied"}
+                          {:uri "/feed/*"
+                           :rule logged-in?
+                           :on-fail (fn [req] (response/send-response {:status-code 403 :message "Access denied"}))}
+                          ]
            ;; serialize/deserialize the following data formats
            ;; available formats:
            ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html
