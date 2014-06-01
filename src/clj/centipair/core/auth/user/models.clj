@@ -19,6 +19,7 @@
 (def user-session-table :user_session)
 (def user-session-index-table :user_session_index)
 (def user-account-registration-table :user_account_registration)
+(def user-profile-table :user_profile)
 
 (def login-error {:status-code 422 :errors {:__all__ "Username or password incorrect"}})
 (def inactive-user-error {:status-code 422 :errors {:__all__ "This account is inactive. Please activate your account."}})
@@ -173,4 +174,30 @@
 (defn insert-early-access-email [form]
   (insert early-access-table {:email (:email form)})
   {:status-code 200 :message "email saved"}
+  )
+
+
+
+(defn delete-account-origin [user-id]
+  (let [user-account (first (select user-account-table (where :user_id user-id)))
+        username (:username user-account)
+        auth-tokens (into [] (map (fn [x] (:auth_token x))(select user-session-index-table (where :user_id user-id))))]
+    (do
+      (delete user-login-username-table (where :username username))
+      (delete user-login-email-table (where :email (:email user-account)))
+      (delete user-session-index-table (where :user_id user-id))
+      (delete user-session-table (where :auth_token [:in auth-tokens]))
+      (delete user-account-table (where :user_id user-id ))
+      (delete user-profile-table (where :user_id user-id ))
+    )
+    "deleted everything"
+  ))
+
+(defn delete-account [email]
+  (let [user-email (select-user-email email)]
+    (if (nil? user-email)
+      "email not found"
+      (delete-account-origin (:user_id user-email))
+      )
+    )
   )
