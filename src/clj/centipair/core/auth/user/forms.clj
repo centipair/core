@@ -11,6 +11,13 @@
       value
       (email-exists-failed message))))
 
+(defn email-should-exist? [value & message]
+  (if (map-or-nil? value)
+    value
+    (if (nil? (select-user-email value))
+      (email-should-exist-failed message)
+      value)))
+
 (defn username-exists? [value & message]
   (if (map-or-nil? value)
     value
@@ -78,3 +85,6 @@
                  {:id "new_password" :type "text" :label "New Password"}]
                 "/admin/password/reset")))
 
+
+(defn forgot-password-form [form]
+  (validate form [:email required? email? email-should-exist?]))

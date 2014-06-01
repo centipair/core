@@ -60,6 +60,9 @@
 (defn email-exists-failed [message]
   (failed-message "This email already exists. Please choose another." message))
 
+(defn email-should-exist-failed [message]
+  (failed-message "This email doesn't exist in our system." message))
+
 (defn domain-exists-failed [message]
   (failed-message "This domain already exists. Please choose another." message))
 

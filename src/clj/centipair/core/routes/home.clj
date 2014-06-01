@@ -46,6 +46,8 @@
 (defn invite [request] 
   (send-response (valid-form? early-access-check (to-data request) insert-early-access-email)))
 
+(defn forgot-password [request])
+
 
 (defn location []
   (layout/render "location.html"))

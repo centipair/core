@@ -18,6 +18,7 @@ CREATE TABLE user_session (auth_token text PRIMARY KEY, session_expire_time time
 CREATE TABLE user_session_index (user_id timeuuid, auth_token text, PRIMARY KEY(user_id, auth_token));
 
 CREATE TABLE user_account_registration(registration_key timeuuid PRIMARY KEY, user_id timeuuid);
+CREATE TABLE password_reset(password_reset_key timeuuid PRIMARY KEY, user_id timeuuid, expiry timestamp);
 
 /*CMS*/
 CREATE TABLE site (site_id uuid PRIMARY KEY, site_name text, domain_name text, active boolean);

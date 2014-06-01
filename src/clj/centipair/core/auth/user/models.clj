@@ -20,6 +20,7 @@
 (def user-session-index-table :user_session_index)
 (def user-account-registration-table :user_account_registration)
 (def user-profile-table :user_profile)
+(def password-reset-table :password_reset)
 
 (def login-error {:status-code 422 :errors {:__all__ "Username or password incorrect"}})
 (def inactive-user-error {:status-code 422 :errors {:__all__ "This account is inactive. Please activate your account."}})
@@ -131,16 +132,6 @@
     (crypto/check-password (:password form) (:password user-account)))
 
 
-(defn login-bkp [form]
-  (let [user-login (get-user-login (:username form))
-        user-account (get-user-account user-login)]
-    (if (or (nil? user-login) (nil? user-account))
-      login-error
-      
-      (if (valid-user-password? user-account form)
-        (create-user-session user-account)
-        login-error))))
-
 (defn login [form]
   (let [user-login (get-user-login (:username form))
         user-account (get-user-account user-login)]
@@ -197,7 +188,13 @@
   (let [user-email (select-user-email email)]
     (if (nil? user-email)
       "email not found"
-      (delete-account-origin (:user_id user-email))
-      )
-    )
-  )
+      (delete-account-origin (:user_id user-email)))))
+
+
+(defn password-reset-email [email]
+  (let [reset-key (time-based)
+        user-id ((select-user-email email) :user_id)
+        password-reset {:password_reset_key reset-key :user_id user-id :expiry (set-time-expiry 48)}]
+    (do
+      (insert password-reset-table password-reset)
+      (send-password-reset-email email password-reset))))
