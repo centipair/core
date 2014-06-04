@@ -11,6 +11,8 @@
                  [markdown-clj "0.9.44"]
                  [environ "0.5.0"]
                  [clojurewerkz/cassaforte "1.3.0"]
+                 [korma "0.3.1"]
+                 [org.clojure/java.jdbc "0.3.3"]
                  [org.immutant/immutant "1.1.1"]
                  [com.draines/postal "1.11.1"]
                  [clj-time "0.7.0"]

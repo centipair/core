@@ -8,6 +8,7 @@
             [centipair.core.api.admin :refer [api-admin-routes]]
             [centipair.core.routes.admin :refer [admin-routes]]
             [centipair.core.feed.routes :refer [feed-routes]]
+            [centipair.core.store.routes :refer [store-routes]]
             [centipair.core.middleware :as middleware]
             [centipair.core.utilities.appresponse :as response]
             [noir.util.middleware :refer [app-handler]]
@@ -59,7 +60,12 @@
 
 (def app (app-handler
            ;; add your application routes here
-           [feed-routes api-admin-routes admin-routes home-routes app-routes]
+           [store-routes 
+            feed-routes
+            api-admin-routes
+            admin-routes
+            home-routes
+            app-routes]
            ;; add custom middleware here
            :middleware []
            ;; add access rules here

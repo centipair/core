@@ -36,7 +36,7 @@
   [:div {:class (str "formGroup " "[{errors." (:id input) "Class}]")}
    [:label {:class "control-label" :for (:id input)} (:label input)]
    [:input {:type (:type input) :class "form-control" :id (:id input) :placeholder (placeholder input) :ng-model (str "form." (:id input))}]
-   [:label {:class "control-label" :for (:id input)} (str "[{errors." (:id input) "Class}]")]])
+   [:label {:class "control-label" :for (:id input)} (str "[{errors." (:id input) "}]")]])
 
 (defn form-inputs [inputs url]
   (conj (reduce conj [:form {:role "form" :name "form"}] (map angular-input inputs)) 
@@ -46,7 +46,7 @@
   )
 
 (defn angular-form [title inputs submit-url]
-  [:div 
+  [:div [:h1 title]
    [:div {:ng-show "allErrorss" :class "form-group has-error"}
     [:label {:class "control-label"} "[{errors.__all__}]"]]
    (form-inputs inputs submit-url)])

@@ -46,7 +46,11 @@
 (defn invite [request] 
   (send-response (valid-form? early-access-check (to-data request) insert-early-access-email)))
 
-(defn forgot-password [request])
+(defn password-forgot []
+  (layout/render "forgot-password.html" {:forgot_password_form (forgot-password-form)}))
+
+(defn password-forgot-submit [request]
+  (send-response (valid-form?  forgot-password-form-validation (to-data request) password-reset-email)))
 
 
 (defn location []
@@ -64,4 +68,6 @@
   (GET "/activate/:key" [key] (activate key))
   (GET "/location" [] (location))
   (POST "/invite" request (invite request))
+  (GET "/password/forgot" [] (password-forgot))
+  (POST "/password/forgot/submit" request (password-forgot-submit request))
   (GET "/csrf" [] (csrf)))

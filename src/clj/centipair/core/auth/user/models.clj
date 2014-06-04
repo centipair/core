@@ -191,10 +191,12 @@
       (delete-account-origin (:user_id user-email)))))
 
 
-(defn password-reset-email [email]
-  (let [reset-key (time-based)
+(defn password-reset-email [form]
+  (let [email (:email form)
+        reset-key (time-based)
         user-id ((select-user-email email) :user_id)
         password-reset {:password_reset_key reset-key :user_id user-id :expiry (set-time-expiry 48)}]
     (do
       (insert password-reset-table password-reset)
-      (send-password-reset-email email password-reset))))
+      (future (send-password-reset-email email password-reset))
+      {:status-code 200 :message "password reset"})))
