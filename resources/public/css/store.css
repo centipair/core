@@ -1,0 +1,31 @@
+.offer-container{
+    margin-bottom:5px;
+    cursor:pointer;
+}
+
+.item-box{
+    cursor:pointer;
+    padding:5px;
+}
+
+.item-box:hover{
+    box-shadow:0 0 2px 0 #D3CBB8
+}
+
+.item-box-image-container{
+    margin-bottom:5px;
+    text-align:center;
+}
+
+.item-box-price {
+    text-align:center;
+    
+    font-weight:bold;
+}
+.item-box-price a{
+    color:#E47911;
+}
+
+.item-box-title{
+    text-align:center;
+}
