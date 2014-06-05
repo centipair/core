@@ -11,7 +11,7 @@
 
 
 (defn store-home []
-  (layout/render "store/home.html"))
+  (layout/render "store/store-home.html"))
 
 (defroutes store-routes 
   (GET "/store" [] (store-home))
