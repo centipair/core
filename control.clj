@@ -9,7 +9,7 @@
 (def production-source-repo "https://github.com/centipair/core")
 
 
-(def restart-app-server "sudo /etc/init.d/jboss-as-standalone restart")
+(def restart-app-server "/etc/init.d/jboss-as-standalone restart")
 
 
 (deftask :deploy 
@@ -20,3 +20,9 @@
     (cd production-code-path 
         (run "git reset --hard")
         (run "git pull origin master")))))
+
+(deftask :restart
+  []
+  (ssh 
+   (sudo "/etc/init.d/jboss-as-standalone restart"))
+  )
