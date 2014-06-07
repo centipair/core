@@ -27,7 +27,7 @@
 
 (defn activate [registration-key]
   (if (activate-account (str-uuid registration-key))
-    (layout/render "account-activation.html" {:title "Account activated" :message "Your account has been activated"})
+    (layout/render "account-activation.html" {:title "Account activated" :message "Your account has been activated.Please <a href=\"/login\">Login</a>"})
     (layout/render "account-activation.html" {:title "Account activation error" :message "Invalid activation code"})))
 
 (defn login-page []
@@ -52,6 +52,10 @@
 (defn password-forgot-submit [request]
   (send-response (valid-form?  forgot-password-form-validation (to-data request) password-reset-email)))
 
+(defn password-reset [reset-key]
+  
+  )
+
 
 (defn location []
   (layout/render "location.html"))
@@ -70,4 +74,5 @@
   (POST "/invite" request (invite request))
   (GET "/password/forgot" [] (password-forgot))
   (POST "/password/forgot/submit" request (password-forgot-submit request))
+  (GET "/password/reset/:reset-key" [reset-key] (password-reset reset-key))
   (GET "/csrf" [] (csrf)))

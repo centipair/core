@@ -4,6 +4,7 @@
      centipair.core.auth.session
      centipair.core.utilities.time
      centipair.core.utilities.mail
+     centipair.core.error
      clojurewerkz.cassaforte.cql
      clojurewerkz.cassaforte.query
      clojurewerkz.cassaforte.uuids
@@ -191,7 +192,7 @@
       (delete-account-origin (:user_id user-email)))))
 
 
-(defn password-reset-email [form]
+(try-catch password-reset-email [form]
   (let [email (:email form)
         reset-key (time-based)
         user-id ((select-user-email email) :user_id)
