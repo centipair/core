@@ -59,7 +59,7 @@
     ))
 
 (defn password-reset-submit [request]
-  (send-response (valid-form?  password-reset-validation (to-data request) (fn [yo] {:status 200 :message "Yo"}))))
+  (send-response (valid-form?  password-reset-validation (to-data request) reset-password)))
   
 
 (defn location []

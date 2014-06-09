@@ -68,6 +68,7 @@
       (delete-session user_session))))
 
 (defn select-user-account [user_id]
+  (println user_id)
   (select user-account-table (where :user_id user_id)))
 
 
@@ -213,3 +214,18 @@
       (if (time-expired? (:expiry (first db-fetch)))
         false
         true))))
+
+(defn change-password [user-id password]
+  (let [user-account (first (select-user-account user-id))]
+    (update user-account-table {:password (crypto/encrypt-password password)} (where :user_id user-id))
+    {:status-code 200 :message "Password changed"}))
+
+(defn reset-password [form]
+  (let [user-id (:user_id (first (select password-reset-table 
+                                  (where :password_reset_key (crypto/str-uuid (:reset_key form))))))
+        password (:password form)]
+  (if (= (:password form) (:confirm_password form))
+    (do 
+      (change-password user-id password)
+      (delete password-reset-table (where :password_reset_key (crypto/str-uuid (:reset_key form))))
+      {:status-code 422 :errors {:confirm_password "Passwords do not match"}}))))
