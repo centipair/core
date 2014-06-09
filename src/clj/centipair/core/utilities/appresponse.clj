@@ -11,8 +11,7 @@
                      :ok 200})
 
 (defn response-code [code]
-  (code response-codes)
-  )
+  (code response-codes))
 
 (defn send-response [response-map]
   (response/status (:status-code response-map) (generate-string response-map)))

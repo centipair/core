@@ -32,10 +32,18 @@
     )
   )
 
+(defn ng-init [input input-map]
+  (println input)
+  (println input-map)
+  
+  (if (nil? (:ng-init input))
+    input-map
+    (merge input-map {:ng-init (:ng-init input)})))
+
 (defn angular-input [input]
   [:div {:class (str "formGroup " "[{errors." (:id input) "Class}]")}
    [:label {:class "control-label" :for (:id input)} (:label input)]
-   [:input {:type (:type input) :class "form-control" :id (:id input) :placeholder (placeholder input) :ng-model (str "form." (:id input))}]
+   [:input (ng-init input {:type (:type input) :class "form-control" :id (:id input) :placeholder (placeholder input) :ng-model (str "form." (:id input))})]
    [:label {:class "control-label" :for (:id input)} (str "[{errors." (:id input) "}]")]])
 
 (defn form-inputs [inputs url]

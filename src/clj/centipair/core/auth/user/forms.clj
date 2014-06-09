@@ -71,18 +71,21 @@
 (defn forgot-password-form []
   (htmlize (angular-form  "Forgot password"
                           [{:id "email" :type "text" :label "Enter your email address"}]
-                          "/password/reset/submit"
+                          "/password/forgot/submit"
                           )))
 
-(defn forgot-password-form []
+(defn password-reset-form [reset-key]
   (htmlize (angular-form "Password Reset" 
-                [{:id "email" :type "text" :label "Enter your email"}]
-                "/password/forgot/submit")))
+                [{:id "password" :type "password" :label "Enter your new Password"}
+                 {:id "confirm_password" :type "password" :label "Confirm new password"}
+                 (merge {:id "reset_key" :type "hidden"} reset-key)]
+                "/password/reset/submit")))
 
-(defn password-reset-check [form]
-  (validate 
-   [:email (-> (:email form) (required? "Please enter registered email") email? )]))
-
+(defn password-reset-validation [form]
+  (validate form 
+            [:password required?]
+            [:confirm_password required?]
+            ))
 
 (defn password-change-form []
   (htmlize (angular-form "Password Change" 

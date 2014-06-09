@@ -53,9 +53,14 @@
   (send-response (valid-form?  forgot-password-form-validation (to-data request) password-reset-email)))
 
 (defn password-reset [reset-key]
-  
-  )
+  (if (= true (valid-password-reset-key reset-key)) 
+    (layout/render "password-reset.html" {:password_reset_form (password-reset-form {:ng-init (str "form.reset_key='" reset-key "'")})})
+    (send-status 404 "Not found")
+    ))
 
+(defn password-reset-submit [request]
+  (send-response (valid-form?  password-reset-validation (to-data request) (fn [yo] {:status 200 :message "Yo"}))))
+  
 
 (defn location []
   (layout/render "location.html"))
@@ -75,4 +80,5 @@
   (GET "/password/forgot" [] (password-forgot))
   (POST "/password/forgot/submit" request (password-forgot-submit request))
   (GET "/password/reset/:reset-key" [reset-key] (password-reset reset-key))
+  (POST "/password/reset/submit" request (password-reset-submit request))
   (GET "/csrf" [] (csrf)))

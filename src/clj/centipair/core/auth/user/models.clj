@@ -201,3 +201,15 @@
       (insert password-reset-table password-reset)
       (future (send-password-reset-email email password-reset))
       {:status-code 200 :message "password reset"})))
+
+
+(try-catch valid-password-reset-key [reset-key]
+  (let [reset-key-uuid (crypto/str-uuid reset-key)
+        db-fetch (select password-reset-table 
+                                 (where :password_reset_key 
+                                        reset-key-uuid))]
+    (if (empty? db-fetch)
+      false
+      (if (time-expired? (:expiry (first db-fetch)))
+        false
+        true))))

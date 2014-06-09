@@ -31,3 +31,11 @@ app.controller('ForgotPasswordCtrl', function($scope, $controller){
 	console.log(data);
     }
 });
+
+app.controller('PasswordResetCtrl', function($scope, $controller){
+    $controller('SubmitCtrl', {$scope:$scope});
+    $scope.loaderMessage = "Submitting...";
+    $scope.callback = function(data){
+	console.log(data);
+    }
+});
