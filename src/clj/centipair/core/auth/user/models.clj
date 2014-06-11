@@ -220,7 +220,7 @@
     (update user-account-table {:password (crypto/encrypt-password password)} (where :user_id user-id))
     {:status-code 200 :message "Password changed"}))
 
-(defn reset-password [form]
+(try-catch reset-password [form]
   (let [user-id (:user_id (first (select password-reset-table 
                                   (where :password_reset_key (crypto/str-uuid (:reset_key form))))))
         password (:password form)]
