@@ -226,6 +226,6 @@
         password (:password form)]
   (if (= (:password form) (:confirm_password form))
     (do 
-      (change-password user-id password)
       (delete password-reset-table (where :password_reset_key (crypto/str-uuid (:reset_key form))))
-      {:status-code 422 :errors {:confirm_password "Passwords do not match"}}))))
+      (change-password user-id password))
+    {:status-code 422 :errors {:confirm_password "Passwords do not match"}})))
