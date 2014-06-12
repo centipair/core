@@ -4,4 +4,4 @@
         centipair.core.feed.models))
 
 (defn feed-form [form]
-  (validate form [:content required?]))
+  (validate form [:content [required? "Please add some content"]]))

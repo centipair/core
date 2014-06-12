@@ -50,6 +50,8 @@
       nil
       (first (select user-session-table (where :auth_token auth_token))))))
 
+(defn session-user-id [] 
+  (:user_id (get-user-session)))
 
 (defn delete-session-index [user_session]
   (delete user-session-index-table (where 
@@ -162,12 +164,11 @@
       (do 
         (activate-user-account registration-request)
         (delete-activation-key registration-request)
-        true))))
+        (:user_id registration-request)))))
 
 (defn insert-early-access-email [form]
   (insert early-access-table {:email (:email form)})
-  {:status-code 200 :message "email saved"}
-  )
+  {:status-code 200 :message "email saved"})
 
 
 

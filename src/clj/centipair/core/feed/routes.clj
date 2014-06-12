@@ -11,7 +11,8 @@
 (defn feed []
   (layout/render "feed.html" {:post_id (new-feed-id)}))
 
-(defn handle-upload [file]
+(defn handle-upload [file id]
+  (println id)
   (io/upload-file  (str (io/resource-path) "uploads") file)
   "Uploaded")
 
@@ -24,5 +25,5 @@
 (def-restricted-routes feed-routes
   (GET "/feed" [] (feed))
   (GET "/feed/data" [] (feed-data))
-  (POST "/feed/upload" [file] (handle-upload file))
+  (POST "/feed/upload" [file id] (handle-upload file id))
   (POST "/feed/post" request (feed-post request)))

@@ -35,6 +35,8 @@ CREATE TABLE api_device_auth_token(auth_token text PRIMARY KEY, platform text, m
 
 CREATE TABLE box(box_id timeuuid, user_id timeuuid, box_name text, created_date timestamp, active boolean, PRIMARY KEY(box_id, user_id));
 CREATE TABLE box_handle(box_name text PRIMARY KEY, box_id_id timeuuid);
+CREATE TABLE box_admin(user_id timeuuid PRIMARY KEY, box_id timeuuid);
+CREATE TABLE box_connect(user_id timeuuid PRIMARY KEY, box_id timeuuid);
 
 CREATE TABLE feed(box_id timeuuid, feed_id timeuuid, content text, location_name text, location_address text, location_latitude decimal, location_longitude decimal, event_name text, event_description text, event_time timestamp, PRIMARY KEY (box_id, feed_id));
 

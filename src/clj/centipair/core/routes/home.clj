@@ -5,7 +5,8 @@
         centipair.core.utilities.forms
         centipair.core.utilities.appresponse
         centipair.core.auth.session
-        centipair.core.cryptography)
+        centipair.core.cryptography
+        centipair.core.feed.models)
   (:require [centipair.core.views.layout :as layout]
             [noir.response :as response]
             [noir.io :as io]
@@ -26,9 +27,13 @@
   (send-response (valid-form? register-form (to-data request) register-user)))
 
 (defn activate [registration-key]
-  (if (activate-account (str-uuid registration-key))
-    (layout/render "account-activation.html" {:title "Account activated" :message "Your account has been activated.Please <a href=\"/login\">Login</a>"})
-    (layout/render "account-activation.html" {:title "Account activation error" :message "Invalid activation code"})))
+  (let [user-id (activate-account (str-uuid registration-key))]
+  (if user-id
+    (do
+      (create-user-box user-id)
+      (layout/render "account-activation.html" {:title "Account activated" :message "Your account has been activated.Please <a href=\"/login\">Login</a>"})
+    )
+    (layout/render "account-activation.html" {:title "Account activation error" :message "Invalid activation code"}))))
 
 (defn login-page []
   (layout/render "login.html"))

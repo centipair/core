@@ -8,7 +8,8 @@ Feed
     <div class="col-md-6" ng-controller="ComposeCtrl">
       <div class="panel panel-default">
 	<div class="panel-body">
-	  <div class="compose" id="compose" ng-model="post.content" contenteditable></div>
+	  <div class="compose" id="content" ng-model="post.content" contenteditable></div>
+	  <label for="compose" class="control-label ng-binding" style="color:red;">[{errors.content}]</label>
 	  <input type="hidden" ng-model="post.id" ng-init="post.id='{{post_id}}'" />
 	</div>
 	<div class="panel-footer">
