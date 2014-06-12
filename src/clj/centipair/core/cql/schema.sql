@@ -46,9 +46,10 @@ CREATE TABLE feed_image (feed_id timeuuid PRIMARY KEY, image_url text);
 
 /*Store*/
 
+/*
 CREATE TABLE product (product_id timeuuid PRIMARY KEY, title text, description text, price decimal, stock decimal);
 CREATE TABLE category(category_id timeuuid PRIMARY KEY, category_name)
 CREATE TABLE category_product(category_id timeuui PRIMARY KEY, product_id timeuuid);
 CREATE TABLE category_tree(parent_id timeuuid PRIMARY KEY, category_id timeuuid)
 CREATE TABLE product_review(product_id timeuuid, user_id timeuuid, comment text, rating int, review_date timestamp, PRIMARY KEY (product_id, user_id));
-
+*/
